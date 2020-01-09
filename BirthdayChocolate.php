@@ -1,0 +1,44 @@
+<?php
+
+// Complete the birthday function below.
+function birthday($s, $d, $m) {
+    $count = 0;
+    if( count($s) > 1 ) {
+        for( $i=0; $i<count($s)-1; $i++ ) {
+            $tmp = 0;
+            for( $j=0; $j<$m; $j++ ) {
+                $tmp += $s[$i+$j];
+            }
+            if( $tmp == $d ) {
+                $count++;
+            }
+        }
+    }
+    else {
+        if( $s[0] == $d ) {
+            $count++;
+        }
+    }
+    return $count;
+}
+
+$fptr = fopen(getenv("OUTPUT_PATH"), "w");
+
+$n = intval(trim(fgets(STDIN)));
+
+$s_temp = rtrim(fgets(STDIN));
+
+$s = array_map('intval', preg_split('/ /', $s_temp, -1, PREG_SPLIT_NO_EMPTY));
+
+$dm = explode(' ', rtrim(fgets(STDIN)));
+
+$d = intval($dm[0]);
+
+$m = intval($dm[1]);
+
+$result = birthday($s, $d, $m);
+
+fwrite($fptr, $result . "\n");
+
+fclose($fptr);
+
